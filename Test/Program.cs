@@ -171,6 +171,36 @@ namespace Test
             }
         }
 
+        public class From
+        {
+            [BinaryObject ( 1 )]
+            public int id;
+
+            [BinaryObject ( 2 )]
+            public short x;
+
+            [BinaryObject ( 3 )]
+            public short y;
+
+            [BinaryObject ( 4 )]
+            public short z;
+        }
+
+        public class To
+        {
+            [BinaryObject ( 1 )]
+            public int a;
+
+            [BinaryObject ( 2 )]
+            public short b;
+
+            [BinaryObject ( 3 )]
+            public short c;
+
+            [BinaryObject ( 4 )]
+            public short d;
+        }
+
         /// <summary>
         /// 反出来的类
         /// </summary>
