@@ -1,39 +1,39 @@
 # BinaryObjectMapper
-C#类的序列化  
+C#类的序列化与反序列化工具类，需要C#7.3环境  
 
 # 使用说明
 在需要序列化的public field上加个[BinaryObject]，即可以序列化此条，[BinaryObject(n)]，n代表序列化顺序。  
 序列化类可以和反序列化类不一样，只需要保证字段类型和序列化顺序一致就可以，比如  
 ```
-	public class From
-        {
-            [BinaryObject ( 1 )]
-            public int id;
+public class From
+{
+    [BinaryObject ( 1 )]
+    public int id;
 
-            [BinaryObject ( 2 )]
-            public short x;
+    [BinaryObject ( 2 )]
+    public short x;
 
-            [BinaryObject ( 3 )]
-            public short y;
+    [BinaryObject ( 3 )]
+    public short y;
 
-            [BinaryObject ( 4 )]
-            public short z;
-        }
+    [BinaryObject ( 4 )]
+    public short z;
+}
 
-        public class To
-        {
-            [BinaryObject ( 1 )]
-            public int a;
+public class To
+{
+    [BinaryObject ( 1 )]
+    public int a;
 
-            [BinaryObject ( 2 )]
-            public short b;
+    [BinaryObject ( 2 )]
+    public short b;
 
-            [BinaryObject ( 3 )]
-            public short c;
+    [BinaryObject ( 3 )]
+    public short c;
 
-            [BinaryObject ( 4 )]
-            public short d;
-        }
+    [BinaryObject ( 4 )]
+    public short d;
+}
 ```
 
 # 支持的类
@@ -56,47 +56,47 @@ public Dictionary<MyClassA, MyClassB> f;
 
 # 序列化复杂的对象
 ```
-        public class SomeObject
-        {
-            [BinaryObject ( 1 )]
-            public int id;
+public class SomeObject
+{
+    [BinaryObject ( 1 )]
+    public int id;
 
-            [BinaryObject ( 2 )]
-            public ItemObj obj;
+    [BinaryObject ( 2 )]
+    public ItemObj obj;
 
-            [BinaryObject ( 3 )]
-            public Vector[] matrix;
+    [BinaryObject ( 3 )]
+    public Vector[] matrix;
 
-            [BinaryObject ( 4 )]
-            public Dictionary<string, ItemObj> otherItems;
+    [BinaryObject ( 4 )]
+    public Dictionary<string, ItemObj> otherItems;
 
-            public class ItemObj
-            {
-                [BinaryObject ( 1 )]
-                public int key;
+    public class ItemObj
+    {
+        [BinaryObject ( 1 )]
+        public int key;
 
-                [BinaryObject ( 2 )]
-                public Vector pos;
+        [BinaryObject ( 2 )]
+        public Vector pos;
 
-                [BinaryObject ( 3 )]
-                public Vector size;
-            }
+        [BinaryObject ( 3 )]
+        public Vector size;
+    }
 
-            public class Vector
-            {
-                [BinaryObject ( 1 )]
-                public int x;
+    public class Vector
+    {
+        [BinaryObject ( 1 )]
+        public int x;
 
-                [BinaryObject ( 2 )]
-                public int y;
+        [BinaryObject ( 2 )]
+        public int y;
 
-                [BinaryObject ( 3 )]
-                public int z;
+        [BinaryObject ( 3 )]
+        public int z;
 
-                [BinaryObject ( 4 )]
-                public List<int> all;
-            }
-        }
+        [BinaryObject ( 4 )]
+        public List<int> all;
+    }
+}
 ```
 
 # 与Protobuf-net比较
