@@ -51,9 +51,9 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Resource Include="original.xml">
+      <AdditionalFiles Include="original.xml">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
+      </AdditionalFiles>
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
