@@ -97,6 +97,9 @@ public class SomeObject
         public List<int> all;
     }
 }
+
+byte[]   bytes = BinaryObjectMapper.Serialize ( new SomeObject () );
+SomeObject cls = BinaryObjectMapper.Deserialize<SomeObject> ( bytes );
 ```
 
 # 与Protobuf-net比较
