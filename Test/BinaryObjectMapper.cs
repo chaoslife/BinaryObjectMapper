@@ -22,7 +22,6 @@ namespace CFramework
         public int Index;
     }
     /// <summary>
-    /// 自动把相关类转为二进制，压缩比是Protobuf的一半，性能比protobuf慢一倍(35w List数据要关600ms 300的900)
     /// 支持类型: byte sbyte ushort short uint int ulong long float double string，
     /// 以及以基础类型为字段的子类，
     /// 还包括以上类型为基础的List和Array（不支持item为基础类型，如果要使用请把基础类型包装到一个类或结构体内）;
@@ -255,13 +254,26 @@ namespace CFramework
         /// <summary>
         /// 反序列化的类应该与序列化的类结构一致
         /// </summary>
-        /// <param name="bytes"></param>
-        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static object Deserialize ( byte[] bytes, Type outputType )
+        {
+            var classInst = Activator.CreateInstance ( outputType );
+            return DeserializeInner ( bytes, outputType, classInst );
+        }
+
+        /// <summary>
+        /// 反序列化的类应该与序列化的类结构一致
+        /// </summary>
         /// <returns></returns>
         public static T Deserialize<T> ( byte[] bytes ) where T : class, new ()
         {
             var type      = typeof( T );
             var classInst = Activator.CreateInstance<T> ();
+            return (T) DeserializeInner ( bytes, type, classInst );
+        }
+
+        private static object DeserializeInner ( byte[] bytes, Type type, object instance )
+        {
             using ( var targetMS = new MemoryStream ( bytes ) )
             {
                 object DeserializeItem ( Type targetType, object inst, MemoryStream ms )
@@ -458,7 +470,7 @@ namespace CFramework
                     }
                 }
 
-                return (T) DeserializeItem ( type, classInst, targetMS );
+                return DeserializeItem ( type, instance, targetMS );
             }
         }
 

@@ -1,5 +1,6 @@
 # BinaryObjectMapper
 C#类的序列化与反序列化工具类，需要C#7.3环境  
+使用测试工程时，请把original.xml复制到/bin/debug/内，才可以加载成功  
 
 # 使用说明
 在需要序列化的public field上加个[BinaryObject]，即可以序列化此条，[BinaryObject(n)]，n代表序列化顺序。  
