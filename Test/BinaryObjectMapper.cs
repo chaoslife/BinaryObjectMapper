@@ -43,7 +43,7 @@ namespace CFramework
         public int Index;
     }
     /// <summary>
-    /// 支持类型: byte sbyte ushort short uint int ulong long float double string，
+    /// 支持类型: bool, byte sbyte ushort short uint int ulong long float double string，
     /// 以及以基础类型为字段的子类，
     /// 还包括以上类型为基础的List和Array（不支持item为基础类型，如果要使用请把基础类型包装到一个类或结构体内）;
     /// string长度最多不超过ushort.MaxValue;
@@ -102,6 +102,10 @@ namespace CFramework
 
                                 case true when fieldType == typeof( double ):
                                     WriteIt ( BitConverter.GetBytes ( GetValue<double> ( field ) ) );
+                                    break;
+
+                                case true when fieldType == typeof( bool ):
+                                    WriteIt ( BitConverter.GetBytes ( GetValue<bool> ( field ) ) );
                                     break;
 
                                 case true when fieldType == typeof( sbyte ):
@@ -253,6 +257,8 @@ namespace CFramework
 
                 case double dbl: return BitConverter.GetBytes ( dbl );
 
+                case bool bl: return BitConverter.GetBytes ( bl );
+
                 case sbyte sbt: return new[] { (byte) sbt };
 
                 case byte bt: return new[] { bt };
@@ -332,6 +338,11 @@ namespace CFramework
                                 case true when fieldType == typeof( double ):
                                     ms.Read ( TempCacheBytes, 0, 8 );
                                     SetValue ( field, BitConverter.ToDouble ( TempCacheBytes, 0 ) );
+                                    break;
+
+                                case true when fieldType == typeof( bool ):
+                                    ms.Read ( TempCacheBytes, 0, 1 );
+                                    SetValue ( field, BitConverter.ToBoolean ( TempCacheBytes, 0 ) );
                                     break;
 
                                 case true when fieldType == typeof( sbyte ):
@@ -520,6 +531,10 @@ namespace CFramework
                     ms.Read ( dest, 0, 8 );
                     return BitConverter.ToDouble ( dest, 0 );
 
+                case true when type == typeof( bool ):
+                    ms.Read ( dest, 0, 1 );
+                    return BitConverter.ToBoolean ( dest, 0 );
+
                 case true when type == typeof( sbyte ):
                     ms.Read ( dest, 0, 1 );
                     return (sbyte) dest[ 0 ];
@@ -614,6 +629,7 @@ namespace CFramework
             typeof( string ),
             typeof( float ),
             typeof( double ),
+            typeof( bool ),
             typeof( sbyte ),
             typeof( byte ),
             typeof( ushort ),

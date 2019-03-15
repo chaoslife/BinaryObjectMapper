@@ -39,7 +39,7 @@ public class To
 
 # 支持的类
 可序列化:  
-基础类型: byte sbyte ushort short uint int ulong long float double string  
+基础类型: bool, byte sbyte ushort short uint int ulong long float double string  
 复杂类型: Array List Dictionary  
 ```
 public string[] a;
@@ -106,4 +106,4 @@ SomeObject cls = BinaryObjectMapper.Deserialize<SomeObject> ( bytes );
 # 与Protobuf-net比较
 序列化后的流比protofub小50%，在执行List数量不多的情况下，效率比protobuf快1/3。  
 当执行量级为35w条时，效率比protobuf慢一倍，这个后续再优化。  
-暂时不支持增量更新。  
+支持增量更新。  
